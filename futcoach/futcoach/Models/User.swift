@@ -20,20 +20,44 @@ struct User: Identifiable, Codable {
     var role: UserRole?
     let createdAt: Date
     
+    // NEW: Team membership fields
+    var teamId: String?
+    var position: String?
+    var birthDate: Date?
+    var profileImageURL: String?
+    
     enum CodingKeys: String, CodingKey {
         case id
         case email
         case fullName = "full_name"
         case role
         case createdAt = "created_at"
+        case teamId = "team_id"
+        case position
+        case birthDate = "birth_date"
+        case profileImageURL = "profile_image_url"
     }
     
-    init(id: String? = nil, email: String, fullName: String, role: UserRole? = nil, createdAt: Date = Date()) {
+    init(
+        id: String? = nil,
+        email: String,
+        fullName: String,
+        role: UserRole? = nil,
+        createdAt: Date = Date(),
+        teamId: String? = nil,
+        position: String? = nil,
+        birthDate: Date? = nil,
+        profileImageURL: String? = nil
+    ) {
         self.id = id
         self.email = email
         self.fullName = fullName
         self.role = role
         self.createdAt = createdAt
+        self.teamId = teamId
+        self.position = position
+        self.birthDate = birthDate
+        self.profileImageURL = profileImageURL
     }
     
     // Firestore mapping
@@ -44,9 +68,11 @@ struct User: Identifiable, Codable {
             "created_at": Timestamp(date: createdAt)
         ]
         
-        if let role = role {
-            dict["role"] = role.rawValue
-        }
+        if let role = role { dict["role"] = role.rawValue }
+        if let teamId = teamId { dict["team_id"] = teamId }
+        if let position = position { dict["position"] = position }
+        if let birthDate = birthDate { dict["birth_date"] = Timestamp(date: birthDate) }
+        if let profileImageURL = profileImageURL { dict["profile_image_url"] = profileImageURL }
         
         return dict
     }
@@ -66,7 +92,20 @@ struct User: Identifiable, Codable {
             email: email,
             fullName: fullName,
             role: role,
-            createdAt: createdAt
+            createdAt: createdAt,
+            teamId: data["team_id"] as? String,
+            position: data["position"] as? String,
+            birthDate: (data["birth_date"] as? Timestamp)?.dateValue(),
+            profileImageURL: data["profile_image_url"] as? String
         )
+    }
+    
+    /// User's initials for avatar display
+    var initials: String {
+        let names = fullName.split(separator: " ")
+        if names.count >= 2 {
+            return String(names[0].prefix(1) + names[1].prefix(1)).uppercased()
+        }
+        return String(fullName.prefix(2)).uppercased()
     }
 }

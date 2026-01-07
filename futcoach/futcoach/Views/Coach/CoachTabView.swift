@@ -17,12 +17,22 @@ struct CoachTabView: View {
             
             PlayersListView()
                 .tabItem {
-                    Label("Players", systemImage: "person.3")
+                    Label("Oyuncular", systemImage: "person.3")
+                }
+            
+            TeamManagementView()
+                .tabItem {
+                    Label("Takım", systemImage: "person.badge.key")
+                }
+            
+            DrillLibraryView()
+                .tabItem {
+                    Label("Driller", systemImage: "figure.soccer")
                 }
             
             ProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: "person.circle")
+                    Label("Profil", systemImage: "person.circle")
                 }
         }
         .accentColor(.white)

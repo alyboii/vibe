@@ -18,22 +18,27 @@ struct PlayerTabView: View {
         TabView {
             PlayerDashboardView(userId: userId)
                 .tabItem {
-                    Label("Dashboard", systemImage: "house.fill")
+                    Label("Ana Sayfa", systemImage: "house.fill")
                 }
             
-            HealthDataEntryView(userId: userId)
+            AssignedTasksView()
                 .tabItem {
-                    Label("Health Data", systemImage: "heart.fill")
+                    Label("Görevler", systemImage: "checklist")
+                }
+            
+            DrillLibraryView()
+                .tabItem {
+                    Label("Driller", systemImage: "figure.soccer")
                 }
             
             TrainingPlanView(userId: userId)
                 .tabItem {
-                    Label("Training Plan", systemImage: "figure.run")
+                    Label("Plan", systemImage: "figure.run")
                 }
             
             ProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: "person.circle")
+                    Label("Profil", systemImage: "person.circle")
                 }
         }
         .accentColor(.white)
