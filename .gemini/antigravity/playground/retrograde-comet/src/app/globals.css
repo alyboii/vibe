@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: url('/images/cursor.png') 16 16, auto;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: #000;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom cursor for different states */
+a,
+button,
+[role="button"],
+input[type="submit"],
+.clickable {
+  cursor: url('/images/cursor.png') 16 16, pointer;
+}
+
+a:hover,
+button:hover {
+  cursor: url('/images/cursor.png') 16 16, pointer;
+}
+
+input,
+textarea,
+select {
+  cursor: url('/images/cursor.png') 16 16, text;
+}
+
+::selection {
+  background-color: #FF6B00;
+  color: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Page Transitions */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main,
+.page-content,
+[data-page] {
+  animation: pageEnter 0.4s ease-out;
+}
+
+/* Smooth View Transitions (for browsers that support it) */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: 0.3s ease-out both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 0.3s ease-out both fade-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,15 @@
+# harman.labs Robots.txt
+# Updated: 2026-01-26
+
+User-agent: *
+Allow: /
+
+# Private pages
+Disallow: /vault
+
+# Static assets
+Disallow: /screenshots/
+Disallow: /audio/
+
+# Sitemap
+Sitemap: https://harman.labs/sitemap.xml
